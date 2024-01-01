@@ -8,13 +8,31 @@ const {
   updateNote,
   deleteNote,
 } = require("../controllers/notes");
+const { isAuthenticated, isAuthor } = require("../middleware/auth");
 
-router.route("/").get(catchAsyncError(getAllNotes));
 router
-  .route("/:id")
-  .get(catchAsyncError(getNote))
-  .patch(catchAsyncError(updateNote))
-  .delete(catchAsyncError(deleteNote));
-router.route("/create").post(catchAsyncError(createNote));
+  .route("/")
+  .get(catchAsyncError(isAuthenticated), catchAsyncError(getAllNotes));
+router
+  .route("/:noteId")
+  .get(
+    catchAsyncError(isAuthenticated),
+    catchAsyncError(isAuthor),
+    catchAsyncError(getNote)
+  )
+  .patch(
+    catchAsyncError(isAuthenticated),
+    catchAsyncError(isAuthor),
+    catchAsyncError(updateNote)
+  )
+  .delete(
+    catchAsyncError(isAuthenticated),
+    catchAsyncError(isAuthor),
+    catchAsyncError(deleteNote)
+  );
+
+router
+  .route("/create")
+  .post(catchAsyncError(isAuthenticated), catchAsyncError(createNote));
 
 module.exports = router;

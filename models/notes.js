@@ -12,6 +12,10 @@ const notesSchema = new mongoose.Schema({
     minLength: [6, "Content length must be more than 6"],
     trim: true,
   },
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Users",
+  },
   createdAt: {
     type: Date,
     default: Date.now(),

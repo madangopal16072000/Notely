@@ -8,6 +8,7 @@ const notesRouter = require("./routes/notes");
 const mongoose = require("mongoose");
 const usersRouter = require("./routes/users");
 const cookieParser = require("cookie-parser");
+const adminRouter = require("./routes/admin");
 
 main().catch((err) => console.log(err));
 
@@ -26,7 +27,8 @@ app.get("/", (req, res) => {
 app.use("/api/v1/notes", notesRouter);
 // users route
 app.use("/api/v1/users", usersRouter);
-
+// admin route
+app.use("/api/v1/admin", adminRouter);
 //error handling middleware
 app.use(errorMiddleware);
 

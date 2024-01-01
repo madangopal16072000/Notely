@@ -3,7 +3,9 @@ const ErrorHandler = require("../util/ErrorHandler");
 
 const createNote = async (req, res, next) => {
   const { title, content } = req.body;
-  const newNote = new Notes({ title, content });
+  const author = req.user._id;
+  const newNote = new Notes({ title, content, author });
+
   const savedNote = await newNote.save();
   res.status(201).json({
     status: "success",
@@ -12,7 +14,8 @@ const createNote = async (req, res, next) => {
 };
 
 const getAllNotes = async (req, res, next) => {
-  const notes = await Notes.find({});
+  const userId = req.user._id;
+  const notes = await Notes.find({ author: userId });
   res.status(200).json({
     status: "success",
     notes,
@@ -20,8 +23,8 @@ const getAllNotes = async (req, res, next) => {
 };
 
 const getNote = async (req, res, next) => {
-  const { id } = req.params;
-  const note = await Notes.findById(id);
+  const { noteId } = req.params;
+  const note = await Notes.findById(noteId);
 
   if (!note) {
     throw next(new ErrorHandler(`no notes exists with given id : ${id}`, 404));
@@ -33,7 +36,7 @@ const getNote = async (req, res, next) => {
 };
 
 const updateNote = async (req, res, next) => {
-  const { id } = req.params;
+  const { noteId } = req.params;
   const updateFields = req.body;
 
   if (Object.keys(updateFields).length === 0) {
@@ -41,29 +44,32 @@ const updateNote = async (req, res, next) => {
   }
 
   updateFields.modifiedAt = Date.now();
-  const updatedNote = await Notes.findByIdAndUpdate(id, updateFields, {
+  const updatedNote = await Notes.findByIdAndUpdate(noteId, updateFields, {
     new: true,
     runValidators: true,
   });
 
   if (!updatedNote) {
     throw new next(
-      new ErrorHandler(`note with id : ${id} doesn't exists!`, 404)
+      new ErrorHandler(`note with id : ${noteId} doesn't exists!`, 404)
     );
   }
 
   res.status(200).json({
     status: "success",
+    description: "note updated successfully",
     note: updatedNote,
   });
 };
 
 const deleteNote = async (req, res, next) => {
-  const { id } = req.params;
-  const deletedNote = await Notes.findByIdAndDelete(id);
+  const { noteId } = req.params;
+  const deletedNote = await Notes.findByIdAndDelete(noteId);
 
   if (!deletedNote) {
-    throw next(new ErrorHandler(`note with id : ${id} doesn't exists`, 404));
+    throw next(
+      new ErrorHandler(`note with id : ${noteId} doesn't exists`, 404)
+    );
   }
   res.status(200).json({
     status: "success",
@@ -77,4 +83,14 @@ module.exports = {
   getNote,
   updateNote,
   deleteNote,
+};
+
+//admin
+module.exports.adminGetAllNotes = async (req, res, next) => {
+  const notes = await Notes.find({});
+  res.status(200).json({
+    status: "success",
+    description: "fetched all notes successfully",
+    notes,
+  });
 };
