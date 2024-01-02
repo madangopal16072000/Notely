@@ -24,10 +24,13 @@ const getAllNotes = async (req, res, next) => {
 
 const getNote = async (req, res, next) => {
   const { noteId } = req.params;
+
   const note = await Notes.findById(noteId);
 
   if (!note) {
-    throw next(new ErrorHandler(`no notes exists with given id : ${id}`, 404));
+    throw next(
+      new ErrorHandler(`no notes exists with given id : ${noteId}`, 404)
+    );
   }
   res.status(200).json({
     status: "success",

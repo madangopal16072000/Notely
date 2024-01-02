@@ -20,10 +20,10 @@ module.exports.isAuthenticated = async (req, res, next) => {
 };
 
 module.exports.isAuthor = async (req, res, next) => {
-  const { id } = req.params;
-  const note = await Notes.findById(id);
+  const { noteId } = req.params;
+  const note = await Notes.findById(noteId);
   if (!note) {
-    throw next(new ErrorHandler(`no notes exists with id : ${id}`, 404));
+    throw next(new ErrorHandler(`no notes exists with id : ${noteId}`, 404));
   }
   if (!note.author.equals(req.user._id)) {
     throw next(new ErrorHandler("You do not have permission to do that", 403));
@@ -46,7 +46,7 @@ module.exports.isAdmin = async (req, res, next) => {
   const userId = req.user._id;
   const admin = await Users.findById(userId);
   if (!admin) {
-    throw next(new ErrorHandler(`no admin exists with id : ${id}`, 404));
+    throw next(new ErrorHandler(`no admin exists with id : ${userId}`, 404));
   }
 
   if (admin.role === "ADMIN") {

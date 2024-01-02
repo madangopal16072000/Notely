@@ -11,8 +11,9 @@ const {
 const { isAuthenticated, isAuthor } = require("../middleware/auth");
 
 router
-  .route("/")
+  .route("/user")
   .get(catchAsyncError(isAuthenticated), catchAsyncError(getAllNotes));
+
 router
   .route("/:noteId")
   .get(
