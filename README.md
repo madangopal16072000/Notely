@@ -13,7 +13,11 @@
     ```
 4. **Run the command `node server.js` in your terminal.**
 5. **For running tests use `npm run test`.**
+6.  [![Demo](https://img.youtube.com/vi/7oGHamQHXyA/0.jpg)](https://www.youtube.com/watch?v=7oGHamQHXyA)
 
+
+
+   
 ## Docker Setup
 
 1. **Create a `.env` file with the following content in the same folder:**
@@ -27,6 +31,7 @@
 3. **Use the command `docker-compose up` in the same folder.**
 4. **For running test first move to container shell using `docker exec -it <container-name> sh` you can find the name of backend container name by using `docker ps`.**
 5. **For running tests use `npm run test`.**
+6. [![Demo](https://img.youtube.com/vi/D292456GQnE/0.jpg)](https://www.youtube.com/watch?v=D292456GQnE)
 
 **After completing either setup, you can access the server at http://127.0.0.1:4000.**
 
