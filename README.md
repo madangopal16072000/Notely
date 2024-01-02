@@ -2,41 +2,37 @@
 
 ## Normal Setup
 
-    - first install mongodb
-    - create .env file of from ```
-        ACCESS_TOKEN_SCRET= put your access token here
-        COOKIE_EXPIRE=1
-        JWT_EXPIRE=1d
-        # for normal setup
-        # MONGODB_URI=mongodb://127.0.0.1:27017/notely
-        # for docker setup
-        MONGODB_URI=mongodb://mongodb:27017/notely
+1. **Install MongoDB.**
+2. **run `npm install` in the same directory to download all the dependencies**
+3. **Create a `.env` file with the following content in the same folder:**
+    ```env
+    ACCESS_TOKEN_SECRET=put your access token here
+    COOKIE_EXPIRE=1
+    JWT_EXPIRE=1d
+    MONGODB_URI=mongodb://127.0.0.1:27017/notely
     ```
-    - uncomment normal version of ```MONGODB_URI```  and comment docker version
-    - on terminal use command ```node server.js```
+4. **Run the command `node server.js` in your terminal.**
+5. **For running tests use `npm run test`.**
 
 ## Docker Setup
 
-    - create .env file of from ```
-        ACCESS_TOKEN_SCRET= put your access token here
-        COOKIE_EXPIRE=1
-        JWT_EXPIRE=1d
-        # for normal setup
-        # MONGODB_URI=mongodb://127.0.0.1:27017/notely
-        # for docker setup
-        MONGODB_URI=mongodb://mongodb:27017/notely
+1. **Create a `.env` file with the following content in the same folder:**
+    ```env
+    ACCESS_TOKEN_SECRET=put your access token here
+    COOKIE_EXPIRE=1
+    JWT_EXPIRE=1d
+    MONGODB_URI=mongodb://mongodb:27017/notely
     ```
-    - uncomment docker version of ```MONGODB_URI``` and comment normal version
-    - start docker
-    - use command ```docker-compose up```
+2. **Start Docker ( for installing docker visit https://www.docker.com/products/docker-desktop/)**
+3. **Use the command `docker-compose up` in the same folder.**
+4. **For running test first move to container shell using `docker exec -it <container-name> sh` you can find the name of backend container name by using `docker ps`.**
+5. **For running tests use `npm run test`.**
 
-** After either step you access server at port 4000 \***
+**After completing either setup, you can access the server at http://127.0.0.1:4000.**
+
 
 ### API Documenation
 #### Link : [Click here](https://documenter.getpostman.com/view/31564556/2s9YsFCtLe)
-#### PDF Version
-<embed src="./documentation/Notely.pdf" type="application/pdf" />
-
 
 
 
