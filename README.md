@@ -35,6 +35,8 @@
 ### API Documenation
 #### Link : [Click here](https://documenter.getpostman.com/view/31564556/2s9YsFCtLe)
 #### PDF Version
+<embed src="./documentation/Notely.pdf" type="application/pdf" />
+
 
 
 
